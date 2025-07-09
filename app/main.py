@@ -1,10 +1,10 @@
 from flask import Flask, jsonify
 
-app = Flask(_name__)
+app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return jsonify({"message":"Bienvenue dans l'API Flask !"})
+    return jsonify({"message": "Bienvenue dans l'API Flask !"})
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

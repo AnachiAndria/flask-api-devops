@@ -1,0 +1,30 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/Checkout@v3
+
+    - name: Build Docker Image
+      run: docker build -t flask-api .
+
+    - name: Run Tests (optiommel)
+      run: echo "Pas de tests pour le moment"
+
+    - name: Deploy to Remote Server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          docker pull TON_IMAGE
+          docker stop flask-api || true
+          docker rm flask-api || truedocker run -d -p 80:5000 --name flask-api flask-api 
